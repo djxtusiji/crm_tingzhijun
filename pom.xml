@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.dxj.dd</groupId>
+  <artifactId>crm2</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>crm2 Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>4.3.2.RELEASE</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>servlet-api</artifactId>
+	    <version>2.5</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/javax.servlet/jsp-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jsp-api</artifactId>
+	    <version>2.0</version>
+	</dependency>
+  </dependencies>
+  <build>
+    <finalName>crm2</finalName>
+    <plugins>
+    	<plugin>
+                <groupId> org.mortbay.jetty</groupId >
+                <artifactId> maven-jetty-plugin</artifactId >
+                <version>6.1.10</version>
+                <configuration>
+                    <encoding> UTF-8</encoding>
+                    <scanIntervalSeconds>10</scanIntervalSeconds><!-- 扫描重新部署的时间 -->
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
+                    <connectors>
+                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector" >
+                            <port>80</port>
+                        </connector>
+                    </connectors>   
+                </configuration>
+                <executions><!-- 在构建生命周期中执行一组目标的配置。每个目标可能有不同的配置。 -->
+                    <execution><!-- execution元素包含了插件执行需要的信息 --> 
+                        <id>start-jetty</id >
+                        <phase>pre-integration-test </phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <daemon>true</daemon>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id >
+                        <phase> post-integration-test</phase >
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+    </plugins>
+  </build>
+</project>
